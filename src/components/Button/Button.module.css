@@ -26,3 +26,8 @@
 .button:focus {
   background-color: #303f9f;
 }
+
+.icon {
+  margin-left: 10px;
+  margin-top: 5px;
+}

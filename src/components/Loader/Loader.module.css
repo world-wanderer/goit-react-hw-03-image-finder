@@ -1,3 +1,15 @@
-.spinner {
-  margin: auto;
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100px;
+
+  color: var(--accent-bg-color);
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  fill: currentColor;
 }

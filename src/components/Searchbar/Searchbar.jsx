@@ -4,32 +4,36 @@ import css from './Searchbar.module.css';
 import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
 
-export class Searchbar extends Component {
+class Searchbar extends Component {
   state = {
     query: '',
   };
 
-  onInputChange = e => {
+  onChangeInput = e => {
     this.setState({ query: e.currentTarget.value.toLowerCase() });
   };
 
-  handleSubmit = e => {
+  onSubmitForm = e => {
     e.preventDefault();
 
-    if (this.state.query.trim() === '') {
+    const { onSubmit } = this.props;
+    const { query } = this.state;
+
+    if (query.trim() === '') {
       Notiflix.Notify.info('Спочатку буквочки введи, потім вже шукай!');
       return;
     }
 
-    this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
+    onSubmit(query);
     e.target.reset();
   };
 
   render() {
+    const { query } = this.state;
+
     return (
       <header className={css.searchbar}>
-        <form className={css.form} onSubmit={this.handleSubmit}>
+        <form className={css.form} onSubmit={this.onSubmitForm}>
           <button type="submit" className={css.button}>
             <ImSearch size={25} />
           </button>
@@ -40,14 +44,16 @@ export class Searchbar extends Component {
             placeholder="Search images and photos"
             autoComplete="off"
             autoFocus
-            value={this.state.query}
-            onChange={this.onInputChange}
+            value={query}
+            onChange={this.onChangeInput}
           />
         </form>
       </header>
     );
   }
 }
+
+export default Searchbar;
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
